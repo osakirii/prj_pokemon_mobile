@@ -2,10 +2,10 @@ import { use, useState } from 'react';
 import { router } from 'expo-router';
 import { useAuth } from '@/context/AuthContext';
 
-import Logo from '@assets/images/moon.png';
+import Logo from '@assets/images/pokemon-logotipo.png';
 import BackgroundImg from '@assets/images/gengarbg.jpg'
 
-import { View, Text, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, Image } from 'react-native';
 import { Button } from '@/components/button';
 import { Input } from '@/components/input';
 import { Card } from '@/components/card';
@@ -48,19 +48,26 @@ export default function Index() {
             <ImageBackground 
                 source={BackgroundImg} 
                 style={[styles.container, {width: '100%', height: '100%'}]}>
-                <Card style={{ width: '100%', maxWidth: 1200 }}>
-                    <Icon name={Logo} size={200} />
+                <Card style={{ width: '100%', maxWidth: 400, alignSelf: 'center' }}>
+
+                    {/* classe de titulo e logotipo */}
+                    <div className='titulo' style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', marginBottom: 10}}>
+                        <Text style={styles.title} >Bem-vindo ao</Text>
+                        <Image source={Logo}/> {/* TODO arrumar logo*/ } 
+                    </div>
+                    
+                    {/* formulário */}
                     <Input 
-                        placeholder="Usuario" 
+                        placeholder="Digite o nome de usuário" 
                         onChangeText={setName} />
                     <Input 
-                        placeholder="Senha" 
+                        placeholder="Digite a senha" 
                         secureTextEntry 
                         onChangeText={setSenha} />
                     <Button 
-                        title="Enviar" 
+                        title="Entrar" 
                         onPress={validateCredentials} 
-                        style={{ marginTop: 20, width: '50%' }}/>
+                        style={{ marginTop: 25, borderRadius: 25, width: '50%' }}/>
                 </Card>
             </ImageBackground>
 
@@ -87,5 +94,6 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 26,
+        textAlign: 'center',
     },
 });

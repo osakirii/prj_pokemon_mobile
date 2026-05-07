@@ -4,7 +4,7 @@ export const Colors = {
     black: '#000000',
     background: '#F5F5F5',
 
-    btnPrimary: '#30a2b1',
+    btnPrimary: '#2F6AB4',
     labelPrimary: '#FFFFFF',
     txtPrimary: '#121214',
     
