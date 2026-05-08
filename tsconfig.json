@@ -5,6 +5,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@assets/*": ["./assets/*"],
+      "@scripts/*": ["./scripts/*"],
     }
   },
   "include": [
@@ -13,5 +14,5 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "declarations.d.ts"
-  ]
+, "src/scripts/fetchJSON.js"  ]
 }

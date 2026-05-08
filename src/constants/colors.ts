@@ -7,6 +7,7 @@ export const Colors = {
     btnPrimary: '#2F6AB4',
     labelPrimary: '#FFFFFF',
     txtPrimary: '#121214',
+    btnSecondary: '#cf3f3f',
     
     semantic: {
         error: {

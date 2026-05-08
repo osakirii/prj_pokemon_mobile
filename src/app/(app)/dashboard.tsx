@@ -1,36 +1,66 @@
-import { router, useLocalSearchParams } from 'expo-router';
-import { useState } from 'react';
-
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { Button } from '@/components/button';
 import { List } from '@/components/list';
 
 import { useAuth } from '@/context/AuthContext';
+import { Input } from '@/components/input';
+import { useState } from 'react';
+import { fetchJSON } from '@/scripts/fetchJSON';
+import { Colors } from '@/constants/colors';
 
 export default function Dashboard() {
     const { user, signOut } = useAuth();
+    const [ poke, setPoke ] = useState<string>('');
+    const [ pokemons, setPokemons ] = useState<any[]>([]);
+    const [ errorMessage, setErrorMessage ] = useState<string | null>(null);
 
-    const posts = [
-        { id: '1', title: 'Card 1', description: 'Texto de aviso 1' },
-        { id: '2', title: 'Card 2', description: 'Texto de aviso 2' },
-        { id: '3', title: 'Card 3', description: 'Texto de aviso 3' },
-    ];
+    async function addPokemon(url: string) {
+        if (!poke) return;
+        try {
+            const data = await fetchJSON(url);
+            setPokemons(prev => [...prev, data]);
+            setPoke('');
+        } catch (err: any) {
+            if (err?.status === 404) {
+                setErrorMessage('Pokémon não encontrado.');
+            } else {
+                setErrorMessage('Erro ao buscar Pokémon.');
+                console.error('Erro ao pegar JSON:', err);
+            }
+        } finally {
+            setTimeout(() => setErrorMessage(null), 3000);
+        }
+    }
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Bem-vindo, {user}</Text>
-            <Button title="Sair da APP" onPress={signOut} />
+            <Text style={styles.title}>Bem-vindo, {user}!</Text>
+            <Text style={styles.label}> Digite o nome do pokemon que deseja procurar: </Text>
+            <Input
+                placeholder='digite o nome do pokemon...'
+                value={poke}
+                onChangeText={setPoke}
+            />
+            {errorMessage ? (
+                <Text style={{ color: 'red', marginTop: 8 }}>{errorMessage}</Text>
+            ) : null}
+            <Button style={{width: '50%', backgroundColor: Colors.btnSecondary}} title="Adicionar" onPress={() => {addPokemon(`https://pokeapi.co/api/v2/pokemon/${poke}`)}} />
 
             <List
-                data={posts}
+                data={pokemons}
                 onLoadMore={() => {}}
                 renderItemContent={(item) => (
-                    <View>
-                        <Text style={styles.cardTitle}>{item.title}</Text>
-                        <Text style={styles.cardText}>{item.description}</Text>
+                    <View style={[styles.container]}>
+                        <Image
+                            source={item.sprites.front_default}
+                            style={{ width: 80, height: 80, marginBottom: 8 }}
+                        />
+                        <Text style={styles.cardTitle}>{item.name}</Text>
+                        <Text style={styles.cardText}>Tipos: {item.types?.[0]?.type?.name ?? '-'}, {item.types?.[1]?.type?.name ?? '-'}</Text>
                     </View>
                 )}
             />
+            <Button title="Sair do Aplicativo?" onPress={signOut} />
 
         </View>
     )
@@ -40,7 +70,7 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 32,
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         gap: 16,
     },
     title: {
@@ -57,5 +87,8 @@ export const styles = StyleSheet.create({
         fontSize: 14,
         color: '#666',
         marginTop: 4,
+    },
+    label: {
+        fontSize: 14,
     }
 });
