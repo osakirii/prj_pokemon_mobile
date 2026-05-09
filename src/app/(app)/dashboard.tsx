@@ -74,15 +74,18 @@ export default function Dashboard() {
               style={[
                 styles.container,
                 {
+                  flexDirection: "row",
+                  alignItems: "center",
                   backgroundColor: Colors.white,
                   borderRadius: 12,
-                  padding: 16,
+
+
                 },
               ]}
             >
               <Image
                 source={{ uri: item.sprites.front_default }}
-                style={{ width: 80, height: 80}}
+                style={{ width: 80, height: 80 }}
               />
 
               <Text style={styles.cardTitle}>{item.name}</Text>
@@ -96,7 +99,12 @@ export default function Dashboard() {
                   borderRadius: 8,
                 }}
               >
-                <Text style={[styles.cardText, { color: Colors.black, fontWeight: "bold" }]}>
+                <Text
+                  style={[
+                    styles.cardText,
+                    { color: Colors.black, fontWeight: "bold" },
+                  ]}
+                >
                   {item.types?.[0]?.type?.name ?? "-"}
                   {item.types?.[1]?.type?.name
                     ? `, ${item.types[1].type.name}`
