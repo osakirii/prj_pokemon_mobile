@@ -1,4 +1,8 @@
-usuario: resenha
-senha: confirmada
+Usuário: resenha
+Senha: confirmada
 
-exemplo de pokemon: Eevee
+Exemplo de pokemon: Eevee
+
+![Login](./assets/images/login.png)
+
+![Dashboard](./assets/images/dashboard.png)
