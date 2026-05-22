@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Pokemon } from "../types/pokemon";
+import { Pokemon } from "../types/pokemon"; // TODO : criar tipo Pokemon
 
 const API_BASE_URL = axios.create({
   baseURL: "https://pokeapi.co/api/v2",

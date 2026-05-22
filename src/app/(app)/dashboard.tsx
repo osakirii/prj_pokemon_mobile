@@ -14,7 +14,18 @@ export default function Dashboard() {
   const [pokemons, setPokemons] = useState<any[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  async function addPokemon(url: string) {
+    async function addPokemon() {
+      for(let i = 1; i <= 151; i++) {
+        try {
+          const data = await fetchJSON(`https://pokeapi.co/api/v2/pokemon/${i}`);
+          setPokemons((prev) => [...prev, data]);
+        } catch (err: any) {
+          setErrorMessage("Erro ao buscar Pokémon.");
+          console.error("Erro ao pegar JSON:", err);
+        }
+      }
+    }
+/*  async function addPokemon(url: string) {
     if (!poke) return;
     try {
       const data = await fetchJSON(url);
@@ -31,7 +42,7 @@ export default function Dashboard() {
       setTimeout(() => setErrorMessage(null), 3000);
     }
   }
-
+*/
   return (
     <View style={styles.container}>
       {/* */}
@@ -54,7 +65,7 @@ export default function Dashboard() {
           style={{ width: 100, backgroundColor: Colors.btnSecondary }}
           title="Pesquisar"
           onPress={() => {
-            addPokemon(`https://pokeapi.co/api/v2/pokemon/${poke}`);
+            addPokemon();
           }}
         />
       </div>
@@ -83,6 +94,7 @@ export default function Dashboard() {
                 },
               ]}
             >
+              <Text style={styles.cardTitle}>{item.id}</Text>
               <Image
                 source={{ uri: item.sprites.front_default }}
                 style={{ width: 80, height: 80 }}
