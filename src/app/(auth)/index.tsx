@@ -53,7 +53,7 @@ export default function Index() {
                     {/* classe de titulo e logotipo */}
                     <div className='titulo' style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', marginBottom: 10}}>
                         <Text style={styles.title} >Bem-vindo ao</Text>
-                        <Image source={Logo}/> {/* TODO arrumar logo*/ } 
+                        <Image source={Logo}/>
                     </div>
                     
                     {/* formulário */}
