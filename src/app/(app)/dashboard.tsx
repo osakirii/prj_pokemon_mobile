@@ -56,7 +56,7 @@ export default function Dashboard() {
                             style={{ width: 80, height: 80, marginBottom: 8 }}
                         />
                         <Text style={styles.cardTitle}>{item.name}</Text>
-                        <Text style={styles.cardText}>Tipos: {item.types?.[0]?.type?.name ?? '-'}, {item.types?.[1]?.type?.name ?? '-'}</Text>
+                        <Text style={styles.cardText}>Tipos: {item.types?.[0]?.type?.name ?? '-'} {item.types?.[1]?.type?.name ?? '-'}</Text>
                     </View>
                 )}
             />
