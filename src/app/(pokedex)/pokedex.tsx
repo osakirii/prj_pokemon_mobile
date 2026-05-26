@@ -17,6 +17,7 @@ export default function Pokedex() {
   async function addPokemon(url: string) {
     if (!poke) return;
     try {
+      //for(let i = 1; i < 151; i++)
       const data = await fetchJSON(url);
       setPokemons((prev) => [...prev, data]);
       setPoke("");
@@ -35,10 +36,8 @@ export default function Pokedex() {
   return (
     <View style={styles.container}>
       <h1>POKEDEX</h1>
-      <button>
-        
-      </button>
-        <a href="./dashboard">dashboard</a>
+      <button></button>
+      <a href="./dashboard">dashboard</a>
       {/* */}
       <Text style={styles.title}>Bem-vindo, {user}!</Text>
       <Text style={styles.label}>
@@ -83,8 +82,6 @@ export default function Pokedex() {
                   alignItems: "center",
                   backgroundColor: Colors.white,
                   borderRadius: 12,
-
-
                 },
               ]}
             >
