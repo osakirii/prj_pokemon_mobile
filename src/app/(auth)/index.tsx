@@ -44,15 +44,13 @@ export default function Index() {
     }
 
     return (
-        <View style={styles.container}>
-            <ImageBackground 
-                source={BackgroundImg} 
-                style={[styles.container, {width: '100%', height: '100%'}]}>
+        <View > 
+
                 <Card style={{ width: '100%', maxWidth: 400, alignSelf: 'center' }}>
 
                     {/* classe de titulo e logotipo */}
                     <div className='titulo' style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', marginBottom: 10}}>
-                        <Text style={styles.title} >Bem-vindo ao</Text>
+                        <Text >Bem-vindo ao</Text>
                         <Image source={Logo}/>
                     </div>
                     
@@ -69,7 +67,6 @@ export default function Index() {
                         onPress={validateCredentials} 
                         style={{ marginTop: 25, borderRadius: 25, width: '50%' }}/>
                 </Card>
-            </ImageBackground>
 
             <Alert 
                 title={alertData.title}
@@ -80,20 +77,3 @@ export default function Index() {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#000',
-        flex: 1,
-        padding: 32,
-        justifyContent: 'center',
-        gap: 16,
-    },
-    title: {
-        color: '#333',
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 26,
-        textAlign: 'center',
-    },
-});
