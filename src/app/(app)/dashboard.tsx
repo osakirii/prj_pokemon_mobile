@@ -7,6 +7,7 @@ import { Input } from "@/components/input";
 import { useState } from "react";
 import { fetchJSON } from "@/scripts/fetchJSON";
 import { Colors } from "@/constants/colors";
+import Case from "@/components/case";
 
 export default function Dashboard() {
   const { user, signOut } = useAuth();
@@ -44,6 +45,7 @@ export default function Dashboard() {
   }
 */
   return (
+    <Case>
     <View style={styles.container}>
       {/* */}
       <Text style={styles.title}>Bem-vindo, {user}!</Text>
@@ -130,6 +132,7 @@ export default function Dashboard() {
 
       <Button title="Sair do Aplicativo?" onPress={signOut} />
     </View>
+    </Case>
   );
 }
 
