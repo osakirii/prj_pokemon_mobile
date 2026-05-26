@@ -3,9 +3,18 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": ["./src/*"],
-      "@assets/*": ["./assets/*"],
-      "@scripts/*": ["./scripts/*"],
+      "@/*": [
+        "./src/*"
+      ],
+      "@assets/*": [
+        "./assets/*"
+      ],
+      "@scripts/*": [
+        "./scripts/*"
+      ],
+      "@constants/*": [
+        "./constants/*"
+      ]
     }
   },
   "include": [
@@ -13,6 +22,8 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "declarations.d.ts"
-, "src/scripts/fetchJSON.js"  ]
+    "declarations.d.ts",
+    "src/scripts/fetchJSON.js",
+    "nativewind-env.d.ts"
+  ]
 }
