@@ -1,10 +1,10 @@
 
 export const Colors = {
-    white: '#FFFFFF',
-    black: '#000000',
-    background: '#F5F5F5',
+    background: '#000000',
+    primaryColor: '#d73431',
+    secondaryColor: '#a50e15',
+    tertiaryColor: '#2F6AB4',
 
-    btnPrimary: '#2F6AB4',
     labelPrimary: '#FFFFFF',
     txtPrimary: '#121214',
     btnSecondary: '#cf3f3f',
