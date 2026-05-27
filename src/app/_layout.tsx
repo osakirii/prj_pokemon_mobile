@@ -26,8 +26,72 @@ export default function Root() {
             borderColor: Colors.secondaryColor,
           }}
         >
+          {/* Circulos */}
           <div
             style={{
+              width: 300,
+              height: 80,
+              background: Colors.primaryColor,
+              display: 'flex',
+              alignItems: 'center',
+
+              padding: "0 20px",
+              gap: 20,
+            }}
+          >
+            <div
+              style={{
+                width: "70px",
+                height: "70px",
+                borderRadius: "50%",
+                background: Colors.tertiaryColor,
+                border: "5px solid #d9ecff",
+                boxShadow: "0 0 20px rgba(100, 200, 255, 0.8)",
+              }}
+            />
+
+            {/* bolinhas */}
+            <div
+              style={{
+                display: "flex",
+                gap: "12px",
+              }}
+            >
+              <div
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  borderRadius: "50%",
+                  background: "#d62828",
+                  boxShadow: "0 0 8px rgba(0,0,0,0.4)",
+                }}
+              />
+
+              <div
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  borderRadius: "50%",
+                  background: "#ffd60a",
+                  boxShadow: "0 0 8px rgba(0,0,0,0.4)",
+                }}
+              />
+
+              <div
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  borderRadius: "50%",
+                  background: "#34c759",
+                  boxShadow: "0 0 8px rgba(0,0,0,0.4)",
+                }}
+              />
+            </div>
+          </div>
+          <div
+            style={{
+              paddingLeft: "5rem",
+              paddingRight: "5rem",
               borderRadius: 15,
               backgroundColor: "#071018",
 

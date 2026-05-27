@@ -44,7 +44,7 @@ export default function Index() {
   }
 
   return (
-    <View>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20 }}>
       <Input placeholder="Digite o nome de usuário" onChangeText={setName} />
         <Input
           placeholder="Digite a senha"

@@ -3,7 +3,7 @@ export const Colors = {
     background: '#000000',
     primaryColor: '#d73431',
     secondaryColor: '#a50e15',
-    tertiaryColor: '#2F6AB4',
+    tertiaryColor: '#00bfff',
 
     labelPrimary: '#FFFFFF',
     txtPrimary: '#121214',

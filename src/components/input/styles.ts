@@ -3,8 +3,10 @@ import { Colors } from "@/constants/colors";
 
 export const styles = StyleSheet.create({
   input: {
-    width: 500,
+    width: '100%',
     height: 50,
+
+    marginVertical: 10,
 
     backgroundColor: "#000000",
     opacity: 1,
@@ -19,5 +21,10 @@ export const styles = StyleSheet.create({
     paddingLeft: 20,
     fontFamily: "monospace",
     fontSize: 18,
+  },
+
+  inputFocused: {
+    borderColor: Colors.primaryColor,
+    borderWidth: 2,
   },
 });
