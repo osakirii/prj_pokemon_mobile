@@ -1,11 +1,13 @@
 
-import React, { createContext, useState, useContext, useEffect, use } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type AuthContextData = {
     isAuthenticated: boolean;
     user: string | null;
     isLoading: boolean;
+    team: any[];
+    addToTeam: (pokemon: any) => boolean;
     signIn: (username: string) => void;
     signOut: () => void;
 }
@@ -16,6 +18,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [team, setTeam] = useState<any[]>([]);
 
     useEffect(() => {
         async function loadStorageData() {
@@ -42,8 +45,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         await AsyncStorage.removeItem('@Auth:user');
     }
 
+    function addToTeam(pokemon: any) {
+        if (team.length >= 6) {
+            return false;
+        }
+
+        setTeam((prevTeam) => [...prevTeam, pokemon]);
+        return true;
+    }
+
     return (
-        <AuthContext.Provider value={{ isAuthenticated, user, signIn, signOut, isLoading }}>
+        <AuthContext.Provider value={{ isAuthenticated, user, signIn, signOut, isLoading, team, addToTeam }}>
             {children}
         </AuthContext.Provider>
     );

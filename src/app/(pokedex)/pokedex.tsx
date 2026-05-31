@@ -4,64 +4,64 @@ import { List } from "@/components/list";
 
 import { useAuth } from "@/context/AuthContext";
 import { Input } from "@/components/input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchJSON } from "@/scripts/fetchJSON";
 import { Colors } from "@/constants/colors";
+import { router } from "expo-router";
+
+const pokemonUrls = Array.from(
+  { length: 150 },
+  (_, index) => `https://pokeapi.co/api/v2/pokemon/${index + 1}`
+);
 
 export default function Pokedex() {
-  const { user, signOut } = useAuth();
-  const [poke, setPoke] = useState<string>("");
-  const [pokemons, setPokemons] = useState<any[]>([]);
+  const { user, addToTeam: addPokemonToTeam } = useAuth();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [pokemons, setPokemons] = useState<any[]>([]);
 
-  async function addPokemon(url: string) {
-    if (!poke) return;
+  const loadPokemons = async () => {
     try {
-      //for(let i = 1; i < 151; i++)
-      const data = await fetchJSON(url);
-      setPokemons((prev) => [...prev, data]);
-      setPoke("");
+      const responses = await Promise.all(
+        pokemonUrls.map((url) => fetchJSON(url))
+      );
+
+      setPokemons(responses);
+      setErrorMessage(null);
     } catch (err: any) {
-      if (err?.status === 404) {
-        setErrorMessage("Pokémon não encontrado.");
-      } else {
-        setErrorMessage("Erro ao buscar Pokémon.");
-        console.error("Erro ao pegar JSON:", err);
-      }
-    } finally {
-      setTimeout(() => setErrorMessage(null), 3000);
+      setErrorMessage("Erro ao buscar Pokémon.");
+      console.error("Erro ao pegar JSON:", err);
     }
+  };
+
+  useEffect(() => {
+    loadPokemons();
+  }, []);
+
+  function addToTeam(pokemon: any) {
+    const added = addPokemonToTeam(pokemon);
+
+    if (!added) {
+      setErrorMessage("Time completo! Remova um Pokémon para adicionar outro.");
+      return;
+    }
+
+    setErrorMessage(null);
+  }
+
+  function goToDashboard() {
+    router.push({ pathname: "/dashboard" });
   }
 
   return (
     <View style={styles.container}>
-      <h1>POKEDEX</h1>
-      <button></button>
-      <a href="./dashboard">dashboard</a>
-      {/* */}
-      <Text style={styles.title}>Bem-vindo, {user}!</Text>
-      <Text style={styles.label}>
-        {" "}
-        Digite o nome do pokemon que deseja procurar:{" "}
-      </Text>
+      <Text style={styles.title}>POKEDEX</Text>
+      <Button title="Dashboard" onPress={goToDashboard} />
 
-      <div style={{ display: "flex", gap: 8 }}>
-        <Input
-          placeholder="Digite o nome do pokemon..."
-          value={poke}
-          onChangeText={setPoke}
-        />
+      <View style={{ gap: 8 }}>
         {errorMessage ? (
           <Text style={{ color: "red", marginTop: 8 }}>{errorMessage}</Text>
         ) : null}
-        <Button
-          style={{ width: 100, backgroundColor: Colors.btnSecondary }}
-          title="Pesquisar"
-          onPress={() => {
-            addPokemon(`https://pokeapi.co/api/v2/pokemon/${poke}`);
-          }}
-        />
-      </div>
+      </View>
 
       <List
         data={pokemons}
@@ -80,11 +80,11 @@ export default function Pokedex() {
                 {
                   flexDirection: "row",
                   alignItems: "center",
-                  backgroundColor: Colors.white,
                   borderRadius: 12,
                 },
               ]}
             >
+              <Button title="Escolher!" onPress={() => addToTeam(item)} />
               <Image
                 source={{ uri: item.sprites.front_default }}
                 style={{ width: 80, height: 80 }}
@@ -104,7 +104,7 @@ export default function Pokedex() {
                 <Text
                   style={[
                     styles.cardText,
-                    { color: Colors.black, fontWeight: "bold" },
+                    {fontWeight: "bold" },
                   ]}
                 >
                   {item.types?.[0]?.type?.name ?? "-"}
@@ -117,8 +117,6 @@ export default function Pokedex() {
           );
         }}
       />
-
-      <Button title="Sair do Aplicativo?" onPress={signOut} />
     </View>
   );
 }
@@ -131,7 +129,7 @@ export const styles = StyleSheet.create({
     gap: 16,
   },
   title: {
-    color: "#333",
+    color: "#fff",
     fontSize: 18,
     fontWeight: "bold",
   },
